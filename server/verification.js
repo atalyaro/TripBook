@@ -12,8 +12,8 @@ const regularUser = (req, res, next) => {
 const onlyAdmin = async (req, res, next) => {
     jwt.verify(req.cookies["access_token"], "thisismysecret", async(err, payload) => {
         if (err) return res.status(403).json({ err: true, msg: err.message })
-        const admin = await Query("SELECT * FROM users WHERE access=1")
-        if (payload.user_id != admin.user_id)
+        const admin = await Query("SELECT users.* FROM users WHERE access=1")
+        if (payload.user_id != admin[0].user_id)
             return res.status(403).json({ err: true, msg: "you dont have access" })
         req.user = payload
         next()

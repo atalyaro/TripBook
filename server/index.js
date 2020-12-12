@@ -9,5 +9,6 @@ app.use(express.json())
 app.use(cookieParser())
 app.use("/auth", require("./routes/auth"))
 app.use("/vacations", require("./routes/vacations"))
+app.use("/follows", require("./routes/follows"))
 
 app.listen(1000, () => "server 1000")
