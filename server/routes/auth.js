@@ -36,7 +36,6 @@ router.post("/register", async (req, res) => {
         if (!private_name || !family_name || !user_name || !password)
             return res.status(400).json({ err: true, msg: "missing info" })
         const users = await Query("SELECT * FROM users")
-        console.log(users)
         if (users.find(u => u.user_name == user_name))
             return res.status(401).json({ err: true, msg: "username is taken" })
         const hash = await bcrypt.hash(password, 10)
