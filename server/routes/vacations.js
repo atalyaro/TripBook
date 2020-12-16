@@ -1,6 +1,10 @@
 const router = require("express").Router()
 const { Query } = require("../dbcon")
-const { onlyAdmin, regularUser } = require("../verification")
+const { onlyAdmin, everyUser } = require("../verification")
+
+router.get("/checkinglogin", everyUser, (req, res) => {
+    res.json(req.user)
+})
 
 router.get("/adminall", onlyAdmin, async (req, res) => {
     try {
@@ -11,7 +15,7 @@ router.get("/adminall", onlyAdmin, async (req, res) => {
     }
 })
 
-router.get("/userall", regularUser, async (req, res) => {
+router.get("/userall", everyUser, async (req, res) => {
     const { user_id } = req.user
     try {
         const q_userFollows = `SELECT vacations.*

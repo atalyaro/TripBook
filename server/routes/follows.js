@@ -1,8 +1,8 @@
 const router = require("express").Router()
 const { Query } = require("../dbcon")
-const { regularUser } = require("../verification")
+const { everyUser } = require("../verification")
 
-router.post("/addfollow", regularUser, async (req, res) => {
+router.post("/addfollow", everyUser, async (req, res) => {
     const { user_id } = req.user
     const { vacation_id } = req.body
     try {
@@ -17,7 +17,7 @@ router.post("/addfollow", regularUser, async (req, res) => {
     }
 })
 
-router.delete("/deletefollow", regularUser, async (req, res) => {
+router.delete("/deletefollow", everyUser, async (req, res) => {
     const { user_id } = req.user
     const { vacation_id } = req.body
     try {

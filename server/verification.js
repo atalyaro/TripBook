@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 const { Query } = require("./dbcon")
 
-const regularUser = (req, res, next) => {
+const everyUser = (req, res, next) => {
     jwt.verify(req.headers.token, "thisismysecret", (err, payload) => {
         if (err) return res.status(403).json({ err: true, msg: err.message })
         req.user = payload
@@ -20,4 +20,4 @@ const onlyAdmin = async (req, res, next) => {
     })
 }
 
-module.exports = { regularUser, onlyAdmin }
+module.exports = { everyUser, onlyAdmin }
