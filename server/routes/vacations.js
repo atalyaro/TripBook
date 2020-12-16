@@ -5,7 +5,7 @@ const { onlyAdmin, regularUser } = require("../verification")
 router.get("/adminall", onlyAdmin, async (req, res) => {
     try {
         const vacations = await Query(`SELECT * FROM vacations`)
-        res.json(vacations)
+        res.json({ err: false, vacations })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
@@ -21,8 +21,8 @@ router.get("/userall", regularUser, async (req, res) => {
         const userUnFollows = await Query(`SELECT * FROM vacations`)
         for (let i = 0; i < userFollows.length; i++) {
             for (let j = 0; j < userUnFollows.length; j++) {
-                if (userFollows[i].vacation_id==userUnFollows[j].vacation_id){
-                    userUnFollows.splice(j,1)
+                if (userFollows[i].vacation_id == userUnFollows[j].vacation_id) {
+                    userUnFollows.splice(j, 1)
                 }
             }
         }
