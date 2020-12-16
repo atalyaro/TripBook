@@ -20,7 +20,7 @@ image varchar(255),
 date_start date,
 date_finish date,
 price int(20),
-followers int(20),
+followers int(20) default 0,
 primary key(vacation_id)
 );
 
