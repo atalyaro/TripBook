@@ -2,10 +2,6 @@ const router = require("express").Router()
 const { Query } = require("../dbcon")
 const { onlyAdmin, everyUser } = require("../verification")
 
-router.get("/checkinglogin", everyUser, (req, res) => {
-    res.json(req.user)
-})
-
 router.get("/adminall", onlyAdmin, async (req, res) => {
     try {
         const vacations = await Query(`SELECT * FROM vacations`)
