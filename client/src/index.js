@@ -7,7 +7,7 @@ import { tokenReducer } from './redux/reducers';
 import { Provider } from 'react-redux';
 
 const rootReducer = combineReducers({
-  tokenOfUser: tokenReducer
+  token: tokenReducer
 })
 
 const store = createStore(rootReducer)
