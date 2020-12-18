@@ -2,6 +2,7 @@ const router = require("express").Router()
 const { Query } = require("../dbcon")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+const { everyUser } = require("../verification")
 
 router.post("/login", async (req, res) => {
     const { user_name, password } = req.body
@@ -14,11 +15,7 @@ router.post("/login", async (req, res) => {
         if (!match) return res.status(402).json({ err: true, msg: "password is wrong" })
         const access_token = jwt.sign({ ...user, password: "****" }, "thisismysecret", { expiresIn: "20m" })
         const refresh_token = jwt.sign({ id: user.user_id }, "thisismysecret2", { expiresIn: "100d" })
-        res.cookie('refresh_token', refresh_token, {
-            maxAge: 1000 * 60 * 60 * 24 * 100,
-            secure: false,
-            httpOnly: true,
-        })
+        localStorage.setItem('refresh_token', refresh_token)
         res.json({ err: false, access_token })
     } catch (error) {
         res.status(500).json({ err: true, error })
@@ -44,7 +41,7 @@ router.post("/register", async (req, res) => {
 
 router.get("/refresh", async (req, res) => {
     try {
-        jwt.verify(req.cookies["refresh_token"], "thisismysecret2", async (err, payload) => {
+        jwt.verify(localStorage["refresh_token"], "thisismysecret2", async (err, payload) => {
             if (err) return res.status(401).json({ err: true, msg: "token refresh expires" })
             const users = await Query("SELECT * FROM users")
             const user = users.find(u => u.id == payload.id)
@@ -58,9 +55,13 @@ router.get("/refresh", async (req, res) => {
 })
 
 router.get("/logout", (req, res) => {
-    res.clearCookie("refresh_token")
+    delete localStorage["refresh_token"]
     const access_token = ""
     res.json({ err: false, access_token })
+})
+
+router.get("/checkinglogin", everyUser, (req, res) => {
+    res.json(req.user)
 })
 
 module.exports = router
