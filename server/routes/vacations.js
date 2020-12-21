@@ -26,8 +26,8 @@ router.get("/userall", everyUser, async (req, res) => {
                 }
             }
         }
-        const allVacByOrder = [...userFollows, userUnFollows]
-        res.json(allVacByOrder)
+        const allVacByOrder = userFollows.concat(userUnFollows)
+        res.json({ err: false, allVacByOrder })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
@@ -55,7 +55,7 @@ router.put("/edit", onlyAdmin, async (req, res) => {
         WHERE vacation_id= ${vacation_id}`
         await Query(q_updateVAC)
         const vacations = await Query(`SELECT * FROM vacations`)
-        res.json(vacations)
+        res.json({ err: false, vacations })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
@@ -67,7 +67,7 @@ router.delete("/delete", onlyAdmin, async (req, res) => {
         await Query(`DELETE FROM vacations
         WHERE vacation_id= ${vacation_id}`)
         const vacations = await Query(`SELECT * FROM vacations`)
-        res.json(vacations)
+        res.json({ err: false, vacations })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
