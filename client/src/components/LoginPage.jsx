@@ -24,6 +24,7 @@ export default function LoginPage({ loginOrSignin, setloginOrSignin }) {
                 type: 'LOGIN',
                 payload: { token: `${data.access_token}` },
             })
+            localStorage.setItem("refresh_token", data.refresh_token)
         }
     }
 

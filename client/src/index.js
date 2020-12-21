@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { combineReducers, createStore } from 'redux';
-import { tokenReducer } from './redux/reducers';
+import { tokenReducer, vacationsUserReducer, vacationsAdminReducer, followsReducer } from './redux/reducers';
 import { Provider } from 'react-redux';
 
 const rootReducer = combineReducers({
-  token: tokenReducer
+  token: tokenReducer,
+  vacationsuser: vacationsUserReducer,
+  vacationsadmin: vacationsAdminReducer,
+  follows: followsReducer
 })
 
 const store = createStore(rootReducer)
