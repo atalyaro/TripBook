@@ -15,8 +15,7 @@ router.post("/login", async (req, res) => {
         if (!match) return res.status(402).json({ err: true, msg: "password is wrong" })
         const access_token = jwt.sign({ ...user, password: "****" }, "thisismysecret", { expiresIn: "20m" })
         const refresh_token = jwt.sign({ id: user.user_id }, "thisismysecret2", { expiresIn: "100d" })
-        localStorage.setItem('refresh_token', refresh_token)
-        res.json({ err: false, access_token })
+        res.json({ err: false, access_token, refresh_token })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
@@ -41,23 +40,26 @@ router.post("/register", async (req, res) => {
 
 router.get("/refresh", async (req, res) => {
     try {
-        jwt.verify(localStorage["refresh_token"], "thisismysecret2", async (err, payload) => {
-            if (err) return res.status(401).json({ err: true, msg: "token refresh expires" })
+        jwt.verify(req.headers.refresh, "thisismysecret2", async (err, payload) => {
+            if (err) return res.status(402).json({ err: true, msg: "token refresh expires" })
             const users = await Query("SELECT * FROM users")
-            const user = users.find(u => u.id == payload.id)
+            const user = users.find(u => u.user_id == payload.id)
             if (!user) return res.status(401).json({ err: true, msg: "user isnt longer exist" })
             const access_token = jwt.sign({ ...user, password: "****" }, "thisismysecret", { expiresIn: "20m" })
-            res.json({ err: false, access_token })
+            res.json({ err: false, access_token, user })
         })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
 })
 
-router.get("/logout", (req, res) => {
-    delete localStorage["refresh_token"]
-    const access_token = ""
-    res.json({ err: false, access_token })
+router.get("/logout", async (req, res) => {
+    try {
+        const access_token = ""
+        res.json({ err: false, access_token })
+    } catch (error) {
+        res.status(500).json({ err: true, error })
+    }
 })
 
 router.get("/checkinglogin", everyUser, (req, res) => {
