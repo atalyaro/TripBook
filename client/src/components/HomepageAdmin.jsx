@@ -1,13 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import VacationCardAdmin from './VacationCardAdmin';
-import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
+import VacationForm from './VacationForm';
+import VacationsChart from './VacationsChart';
 
 export default function HomepageAdmin() {
     const vacations = useSelector(state => state.vacationsadmin)
     const token = useSelector(state => state.token)
     const dispatch = useDispatch()
+    const [addorall, setaddorall] = useState(true)
+    const [chartsorall, setchartsorall] = useState(true)
 
     useEffect(() => {
         (async () => {
@@ -22,10 +26,10 @@ export default function HomepageAdmin() {
                     payload: { vacations: data.vacations }
                 })
             } else {
-                alert(data.err)
+                console.log(data.err)
             }
         })()
-    }, [vacations])
+    }, [])
 
     const logout = async () => {
         const res = await fetch("http://localhost:1000/auth/logout")
@@ -43,11 +47,28 @@ export default function HomepageAdmin() {
         <div>
             <header>
                 <button onClick={logout}>Logout</button>
-                <button>CHARTS</button>
+                <button onClick={() => { setchartsorall(!chartsorall) }}>CHARTS</button>
             </header>
             <main>
-                <NavLink to="/add">Add Vacation</NavLink>
-                {vacations.map(v => <VacationCardAdmin key={v.id} vacation={v} />)}
+                <Button variant="contained" onClick={() => setaddorall(!addorall)}>Add Vacation</Button>
+                {(() => {
+                    switch (addorall) {
+                        case false && chartsorall:
+                            return (
+                                <VacationForm setaddorall={setaddorall} addorall={addorall} />
+                            )
+                        case true && (!chartsorall):
+                            return (
+                                <VacationsChart />
+                            )
+                        default:
+                            return (
+                                vacations.map(v => <VacationCardAdmin key={v.id} vacation={v} />)
+                            )
+                    }
+                })()}
+                {/* //    chartsorall ? vacations.map(v => <VacationCardAdmin key={v.id} vacation={v} />) :
+        //             <VacationForm setaddorall={setaddorall} addorall={addorall} />} */}
             </main>
         </div>
     )

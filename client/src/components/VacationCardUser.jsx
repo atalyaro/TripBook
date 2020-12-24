@@ -110,11 +110,11 @@ export default function VacationCard({ vacation }) {
                     {vacation.price}$</Typography>
             </CardContent>
             <CardActions disableSpacing>
-                {follow ? <IconButton aria-label="add to follow">
-                    <FavoriteBorderIcon onClick={() => { setfollow(!follow); addfollow(); }} />
+                {follow ? <IconButton aria-label="add to follow" onClick={() => { setfollow(!follow); addfollow(); }}>
+                    <FavoriteBorderIcon />
                 </IconButton> :
-                    <IconButton aria-label="delete follow">
-                        <FavoriteIcon onClick={() => { setfollow(!follow); deletefollow(); }} />
+                    <IconButton aria-label="delete follow" onClick={() => { setfollow(!follow); deletefollow(); }}>
+                        <FavoriteIcon />
                     </IconButton>}
             </CardActions>
         </Card>
