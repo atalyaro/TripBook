@@ -11,6 +11,16 @@ router.get("/adminall", onlyAdmin, async (req, res) => {
     }
 })
 
+router.get("/admincharts", onlyAdmin, async (req, res) => {
+    try {
+        const vacations = await Query(`SELECT vacation_id,followers FROM vacations
+        WHERE followers>0`)
+        res.json({ err: false, vacations })
+    } catch (error) {
+        res.status(500).json({ err: true, error })
+    }
+})
+
 router.get("/userall", everyUser, async (req, res) => {
     const { user_id } = req.user
     try {
@@ -37,10 +47,10 @@ router.post("/add", onlyAdmin, async (req, res) => {
     const { description, country, image, date_start, date_finish, price } = req.body
     try {
         const q_addVac = `INSERT INTO vacations(description, country, image, date_start, date_finish, price)
-        VALUES('${description}','${country}','${image}','${date_start}','${date_finish}',${price})`
+        VALUES('${description}','${country}','${image}',DATE '${date_start}',DATE '${date_finish}',${price})`
         await Query(q_addVac)
         const vacations = await Query(`SELECT * FROM vacations`)
-        res.json(vacations)
+        res.json({ err: false, vacations })
     } catch (error) {
         res.status(500).json({ err: true, error })
     }
