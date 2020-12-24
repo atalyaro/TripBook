@@ -18,6 +18,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,12 +40,11 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: red[500],
-    },
+    }
 }))
 
 export default function VacationCard({ vacation }) {
     const token = useSelector(state => state.token)
-    // const vacations = useSelector(state => state.vacationsadmin)
     const classes = useStyles()
     const dispatch = useDispatch()
     const [description, setdescription] = useState(vacation.description)
@@ -126,25 +126,25 @@ export default function VacationCard({ vacation }) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <p>country:</p>
+                    <FormHelperText id="outlined-weight-helper-text">Country</FormHelperText>
                     <TextField id="standard-basic" defaultValue={country} onChange={(e) => setcountry(e.target.value)} />
-                    <p>description:</p>
+                    <FormHelperText id="outlined-weight-helper-text">Description</FormHelperText>
                     <TextField id="standard-basic" defaultValue={description} onChange={(e) => setdescription(e.target.value)} />
-                    <p>image url:</p>
+                    <FormHelperText id="outlined-weight-helper-text">Image url</FormHelperText>
                     <TextField id="standard-basic" defaultValue={image} onChange={(e) => setimage(e.target.value)} />
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <p>date of staring:</p>
+                        <FormHelperText id="outlined-weight-helper-text">Date of starting:</FormHelperText>
                         <KeyboardDatePicker disableToolbar variant="inline" format="dd/MM/yyyy" margin="normal" id="date-picker-inline"
                             value={date_start} onChange={(e) => setdate_start(e)} KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }} />
-                        <p>date of ending:</p>
+                        <FormHelperText id="outlined-weight-helper-text">Date of ending:</FormHelperText>
                         <KeyboardDatePicker disableToolbar variant="inline" format="dd/MM/yyyy" margin="normal" id="date-picker-inline"
                             value={date_finish} onChange={(e) => setdate_finish(e)} KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }} />
                     </MuiPickersUtilsProvider>
-                    <p>price:</p>
+                    <FormHelperText id="outlined-weight-helper-text">Price:</FormHelperText>
                     <TextField id="standard-basic" defaultValue={price} onChange={(e) => setprice(e.target.value)} />
                     <p></p>
                     <Button variant="contained" color="primary" size="large" className={classes.button}

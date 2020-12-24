@@ -32,6 +32,7 @@ export default function RegisterPage({ setloginOrSignin, loginOrSignin }) {
             <input type="text" placeholder="password" onChange={(e) => setpassword(e.target.value)} />
             <button onClick={adduser}>Sign-up</button>
             <p>{error}</p>
+            <p>already have an account? <button onClick={setloginOrSignin(!loginOrSignin)}>CLICK HERE</button></p>
         </div>
     )
 }

@@ -21,7 +21,7 @@ export default function HomepageUser() {
                     payload: { follows: data.follows[0]['COUNT(user_id)'] }
                 })
             } else {
-                alert(data.err)
+                console.log(data.err)
             }
         })()
     }, [])
@@ -39,7 +39,7 @@ export default function HomepageUser() {
                     payload: { vacations: data.allVacByOrder }
                 })
             } else {
-                alert(data.err)
+                console.log(data.msg)
             }
         })()
     }, [follows])
@@ -53,7 +53,7 @@ export default function HomepageUser() {
             })
             delete localStorage["refresh_token"]
         } else {
-            alert("there is some problem")
+            console.log(data.err)
         }
     }
 
