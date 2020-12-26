@@ -15,6 +15,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
+        marginTop: theme.spacing(1.75)
     },
     media: {
         height: 0,
@@ -55,7 +56,7 @@ export default function VacationCard({ vacation }) {
             if (!data.err) {
                 setfollow(data.follow)
             } else {
-                alert(data.err)
+                console.log(data.error)
             }
         })()
     }, [vacations])
@@ -110,11 +111,11 @@ export default function VacationCard({ vacation }) {
                     {vacation.price}$</Typography>
             </CardContent>
             <CardActions disableSpacing>
-                {follow ? <IconButton aria-label="add to follow">
-                    <FavoriteBorderIcon onClick={() => { setfollow(!follow); addfollow(); }} />
+                {follow ? <IconButton aria-label="add to follow" onClick={() => { setfollow(!follow); addfollow(); }}>
+                    <FavoriteBorderIcon />
                 </IconButton> :
-                    <IconButton aria-label="delete follow">
-                        <FavoriteIcon onClick={() => { setfollow(!follow); deletefollow(); }} />
+                    <IconButton aria-label="delete follow" onClick={() => { setfollow(!follow); deletefollow(); }}>
+                        <FavoriteIcon />
                     </IconButton>}
             </CardActions>
         </Card>

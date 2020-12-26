@@ -41,6 +41,9 @@ export const vacationsAdminReducer = (state = [], action) => {
         case 'EDIT':
             state = action.payload.vacations
             return state
+        case 'ADDVAC':
+            state = action.payload.vacations
+            return state
         default:
             return state
     }
