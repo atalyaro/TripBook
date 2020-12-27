@@ -60,9 +60,11 @@ export default function VacationForm({ setwhichpage }) {
                 type: 'ADDVAC',
                 payload: { vacations: data.vacations }
             })
+
             setwhichpage(0)
         } else {
             alert(data.msg)
+
         }
     }
 

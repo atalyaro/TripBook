@@ -135,7 +135,7 @@ export default function HomepageAdmin() {
                 console.log(data.error)
             }
         })()
-    }, [vacations])
+    }, [])
 
     const logout = async () => {
         const res = await fetch("http://localhost:1000/auth/logout")

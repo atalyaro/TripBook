@@ -18,6 +18,8 @@ export default function VacationsChart() {
     const token = useSelector(state => state.token)
     const classes = useStyles()
 
+
+
     useEffect(() => {
         (async () => {
             const res = await fetch("http://localhost:1000/vacations/admincharts", {

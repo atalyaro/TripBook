@@ -159,7 +159,7 @@ export default function HomepageUser() {
             })
             delete localStorage["refresh_token"]
         } else {
-            alert("there is some problem")
+            console.log(data.err)
         }
     }
 

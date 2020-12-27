@@ -4,9 +4,9 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import HomepageAdmin from './components/HomepageAdmin';
 import HomepageUser from './components/HomepageUser';
-import VacationForm from './components/VacationForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import VacationsChart from './components/VacationsChart';
 
 function App() {
   const [User, setUser] = useState({})
@@ -72,7 +72,7 @@ function App() {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
-          <Route path="/add" component={VacationForm} />
+          <Route path="/charts" component={VacationsChart} />
           <Route path="/home" component={App} />
         </Switch>
       </div>

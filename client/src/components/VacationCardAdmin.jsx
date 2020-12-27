@@ -18,6 +18,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,12 +41,11 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: red[500],
-    },
+    }
 }))
 
 export default function VacationCard({ vacation }) {
     const token = useSelector(state => state.token)
-    // const vacations = useSelector(state => state.vacationsadmin)
     const classes = useStyles()
     const dispatch = useDispatch()
     const [description, setdescription] = useState(vacation.description)
