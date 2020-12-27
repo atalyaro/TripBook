@@ -46,6 +46,12 @@ router.get("/userall", everyUser, async (req, res) => {
 router.post("/add", onlyAdmin, async (req, res) => {
     const { description, country, image, date_start, date_finish, price } = req.body
     try {
+        if (!description || !country || !image || !date_start || !date_finish || !price)
+            return res.json({ err: true, msg: "missing some info" })
+        const checkdate_start = new Date(date_start)
+        const checkdate_finish = new Date(date_finish)
+        if (checkdate_start.getTime() >= checkdate_finish.getTime())
+            return res.json({ err: true, msg: "date starting must be before date ending" })
         const q_addVac = `INSERT INTO vacations(description, country, image, date_start, date_finish, price)
         VALUES('${description}','${country}','${image}',DATE '${date_start}',DATE '${date_finish}',${price})`
         await Query(q_addVac)

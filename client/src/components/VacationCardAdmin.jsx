@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,6 +23,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
+        marginTop: theme.spacing(1.75)
     },
     media: {
         height: 0,
@@ -53,12 +54,11 @@ export default function VacationCard({ vacation }) {
     const [date_start, setdate_start] = useState(new Date(vacation.date_start))
     const [date_finish, setdate_finish] = useState(new Date(vacation.date_finish))
     const [price, setprice] = useState(vacation.price)
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
-    };
-
+    }
 
     const deletevacation = async () => {
         const res = await fetch('http://localhost:1000/vacations/delete', {
@@ -112,8 +112,8 @@ export default function VacationCard({ vacation }) {
                     {vacation.price}$</Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="delete vacation">
-                    <DeleteIcon onClick={deletevacation} />
+                <IconButton aria-label="delete vacation" onClick={deletevacation}>
+                    <DeleteIcon />
                 </IconButton>
                 <IconButton className={clsx(classes.expand, {
                     [classes.expandOpen]: expanded,
@@ -121,34 +121,28 @@ export default function VacationCard({ vacation }) {
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
                     aria-label="open edit form">
-                    <EditIcon onClick={() => { }} />
+                    <EditIcon />
                 </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <FormHelperText id="outlined-weight-helper-text">Country</FormHelperText>
-                    <TextField id="standard-basic" defaultValue={country} onChange={(e) => setcountry(e.target.value)} />
-                    <FormHelperText id="outlined-weight-helper-text">Description</FormHelperText>
-                    <TextField id="standard-basic" defaultValue={description} onChange={(e) => setdescription(e.target.value)} />
-                    <FormHelperText id="outlined-weight-helper-text">Image url</FormHelperText>
-                    <TextField id="standard-basic" defaultValue={image} onChange={(e) => setimage(e.target.value)} />
+                    <TextField labal="country" id="standard-basic" defaultValue={country} onChange={(e) => setcountry(e.target.value)} />
+                    <TextField label="description" id="standard-basic" defaultValue={description} onChange={(e) => setdescription(e.target.value)} />
+                    <TextField label="image url" id="standard-basic" defaultValue={image} onChange={(e) => setimage(e.target.value)} />
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <FormHelperText id="outlined-weight-helper-text">Date of starting:</FormHelperText>
-                        <KeyboardDatePicker disableToolbar variant="inline" format="dd/MM/yyyy" margin="normal" id="date-picker-inline"
+                        <KeyboardDatePicker label="date of staring" disableToolbar variant="inline" format="dd/MM/yyyy" margin="normal" id="date-picker-inline"
                             value={date_start} onChange={(e) => setdate_start(e)} KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }} />
-                        <FormHelperText id="outlined-weight-helper-text">Date of ending:</FormHelperText>
-                        <KeyboardDatePicker disableToolbar variant="inline" format="dd/MM/yyyy" margin="normal" id="date-picker-inline"
+                        <KeyboardDatePicker label="date of ending" disableToolbar variant="inline" format="dd/MM/yyyy" margin="normal" id="date-picker-inline"
                             value={date_finish} onChange={(e) => setdate_finish(e)} KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }} />
                     </MuiPickersUtilsProvider>
-                    <FormHelperText id="outlined-weight-helper-text">Price:</FormHelperText>
-                    <TextField id="standard-basic" defaultValue={price} onChange={(e) => setprice(e.target.value)} />
+                    <TextField label="price" id="standard-basic" defaultValue={price} onChange={(e) => setprice(e.target.value)} />
                     <p></p>
                     <Button variant="contained" color="primary" size="large" className={classes.button}
-                        onClick={editvacation} startIcon={<SaveIcon />}>Save Changes</Button>
+                        onClick={() => { handleExpandClick(); editvacation(); }} startIcon={<SaveIcon />}>Save Changes</Button>
                 </CardContent>
             </Collapse>
         </Card>

@@ -15,6 +15,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
+        marginTop: theme.spacing(1.75)
     },
     media: {
         height: 0,
@@ -55,7 +56,7 @@ export default function VacationCard({ vacation }) {
             if (!data.err) {
                 setfollow(data.follow)
             } else {
-                alert(data.err)
+                console.log(data.error)
             }
         })()
     }, [vacations])

@@ -1,13 +1,24 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { Chart, BarSeries, Title, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: theme.spacing(1.2)
+    }
+})
+)
 
 export default function VacationsChart() {
     const [chartData, setchartData] = useState([])
     const token = useSelector(state => state.token)
+    const classes = useStyles()
+
+
 
     useEffect(() => {
         (async () => {
@@ -20,27 +31,28 @@ export default function VacationsChart() {
             if (!data.err) {
                 setchartData(data.vacations)
             } else {
-                alert(data.err)
+                console.log(data.err)
             }
         })()
     }, [])
 
     return (
         <div>
-            <Paper>
+            <Paper className={classes.root}>
                 <Chart
                     data={chartData}>
                     <ArgumentAxis />
-                    <ValueAxis max={chartData.length} />
+                    <ValueAxis />
 
                     <BarSeries
+                        name="followers"
                         valueField="followers"
-                        argumentField="vacation_id"
-                        barWidth={10}
+                        argumentField="country"
+                        color="#ffd700"
                     />
-
-                    <Title text="Vacation followers" />
                     <Animation />
+                    <Title text="Vacations Followers" />
+                    <Stack />
                 </Chart>
             </Paper>
         </div>
