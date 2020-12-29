@@ -133,7 +133,7 @@ export default function RegisterPage({ setloginOrSignin, loginOrSignin }) {
                                     />
                                 </Grid>
                             </Grid>
-                            <p>{error}</p>
+                            <p className="error">{error}</p>
                             <Button
                                 fullWidth
                                 variant="contained"

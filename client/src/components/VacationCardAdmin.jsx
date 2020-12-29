@@ -68,7 +68,7 @@ export default function VacationCard({ vacation }) {
         })
         const data = await res.json()
         if (data.err) {
-            alert(data.err)
+            alert(data.error)
         } else {
             dispatch({
                 type: 'DELETE',
@@ -81,7 +81,7 @@ export default function VacationCard({ vacation }) {
         const res = await fetch('http://localhost:1000/vacations/edit', {
             method: "PUT",
             headers: { token, "Content-Type": "application/json" },
-            body: JSON.stringify({ "vacation_id": vacation.vacation_id, country, description, image, date_start, date_finish, price })
+            body: JSON.stringify({ "vacation_id": vacation.vacation_id, country, description, image, date_start: date_start.toISOString().slice(0, 10), date_finish: date_finish.toISOString().slice(0, 10), price })
         })
         const data = await res.json()
         if (data.err) {
