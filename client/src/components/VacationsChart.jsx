@@ -27,7 +27,6 @@ export default function VacationsChart() {
                 headers: { "token": token }
             })
             const data = await res.json()
-            console.log(data.vacations)
             if (!data.err) {
                 setchartData(data.vacations)
             } else {

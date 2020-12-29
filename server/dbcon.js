@@ -12,9 +12,9 @@ connection.connect(err => {
     console.log("cool! connected to sql")
 })
 
-const Query = (q,...values) => {
+const Query = (q, ...values) => {
     return new Promise((resolve, reject) => {
-        connection.query(q,values,(err, results) => {
+        connection.query(q, values, (err, results) => {
             if (err) {
                 console.log(err)
                 reject(err)
@@ -25,4 +25,4 @@ const Query = (q,...values) => {
     })
 }
 
-module.exports = {connection, Query}
+module.exports = { connection, Query }

@@ -13,7 +13,7 @@ router.get("/adminall", onlyAdmin, async (req, res) => {
 
 router.get("/admincharts", onlyAdmin, async (req, res) => {
     try {
-        const vacations = await Query(`SELECT vacation_id,followers FROM vacations
+        const vacations = await Query(`SELECT country,followers FROM vacations
         WHERE followers>0`)
         res.json({ err: false, vacations })
     } catch (error) {
@@ -80,6 +80,8 @@ router.put("/edit", onlyAdmin, async (req, res) => {
 router.delete("/delete", onlyAdmin, async (req, res) => {
     const { vacation_id } = req.body
     try {
+        await Query(`DELETE FROM follows
+        WHERE vacation_id= ${vacation_id}`)
         await Query(`DELETE FROM vacations
         WHERE vacation_id= ${vacation_id}`)
         const vacations = await Query(`SELECT * FROM vacations`)

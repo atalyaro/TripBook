@@ -109,7 +109,7 @@ export default function LoginPage({ loginOrSignin, setloginOrSignin }) {
                                 autoComplete="current-password"
                                 onChange={e => setpassword(e.target.value)}
                             />
-                            <p>{error}</p>
+                            <p className="error">{error}</p>
                             <Button
                                 fullWidth
                                 variant="contained"
