@@ -18,7 +18,7 @@ add page- where the admin can add a trip
 
 there is no backward and forward, the web is built on one page whos change according the request.
 
-Front- React and Matriel
+Front- React and Material
 
 Back- NodeJS Express
 
