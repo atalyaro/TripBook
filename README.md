@@ -3,7 +3,7 @@ tripbook is helping you find vacations around the world.
 
 there is an admin platform and a clients platform.
 
-there is Login/Register Page.
+there is a Login/Register Page.
 the site will Alert on errors like wrong password or missing information.
 
 Home Page for Client:
