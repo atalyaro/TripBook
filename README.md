@@ -1,22 +1,22 @@
 # Trip Book
-This web is helping you to find and save the best tripes around the world.
+tripbook is helping you to find vacations around the world.
 
-in this web there is a admin account and clients.
+there is an admin platform and a clients platform.
 
-Login/Register Page
-Alerting errors like wrong password or missing information
+there is Login/Register Page.
+the site will Alert on errors like wrong password or missing information.
 
-Home Page for Client
-you can find here all the availlabe trips and you can mark like on your favorite vactions
-your favorite trips always shows first.
+Home Page for Client:
+you can find here all the availlabe vacations and you can mark "like" on your preferd ones.
+your favorite vacations will always show first on the top of the home page.
 
-Home Page for Admin
-devided to three pathes
-main page- where the admin can edit or delete a exist trips
-Vacations Likes- A graph who is update real time. The admin can check how many likes there is for every trip
-add page- where the admin can add a trip
+Home Page for Admin:
+devided to three paths,
+main page: where the admin can edit or delete the existing trips.
+Vacations Likes: A graph that is being updated in real time, where The admin can check how many likes there is for every vacation.
+add page: where the admin can add a new destanation.
 
-there is no backward and forward, the web is built on one page whos change according the request.
+there is no backward or forward option, the website rebuilds itself on the same page according to the client/admin request.
 
 Front- React and Material
 
