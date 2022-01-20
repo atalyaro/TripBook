@@ -1,5 +1,5 @@
 # Trip Book
-tripbook is helping you to find vacations around the world.
+tripbook is helping you find vacations around the world.
 
 there is an admin platform and a clients platform.
 
